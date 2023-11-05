@@ -38,11 +38,35 @@ inline fun newMethodAfter(
     }
 }
 
+inline fun newMethodHook(
+    crossinline before: ((XC_MethodHook.MethodHookParam) -> Unit),
+    crossinline after: ((XC_MethodHook.MethodHookParam) -> Unit),
+): XC_MethodHook {
+    return object : XC_MethodHook() {
+
+        override fun beforeHookedMethod(param: MethodHookParam?) {
+            runCatch {
+                if (param != null) {
+                    before(param)
+                }
+            }
+        }
+
+        override fun afterHookedMethod(param: MethodHookParam?) {
+            runCatch {
+                if (param != null) {
+                    after(param)
+                }
+            }
+        }
+    }
+}
+
 inline fun newInvocation(crossinline block: (proxy: Any, method: Method, args: Array<out Any>) -> Any): InvocationHandler {
     return InvocationHandler { proxy, method, args -> block(proxy, method, args) }
 }
 
-inline fun<T> runCatch(crossinline block: () -> T): Result<T> {
+inline fun <T> runCatch(crossinline block: () -> T): Result<T> {
     return runCatching(block).onFailure {
         Logger.printStackTrace(it)
     }

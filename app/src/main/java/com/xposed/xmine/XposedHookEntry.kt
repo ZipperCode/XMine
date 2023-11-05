@@ -1,12 +1,15 @@
 package com.xposed.xmine
 
 import android.app.Application
+import android.content.Context
 import com.xposed.xmine.hooker.BaiduAd
 import com.xposed.xmine.hooker.CsjAd
+import com.xposed.xmine.hooker.DeJianHooker
 import com.xposed.xmine.hooker.GdtAd
 import com.xposed.xmine.hooker.KsAd
 import com.xposed.xmine.hooker.TanxAd
 import com.xposed.xmine.hooker.base.IHookReward
+import com.xposex.xmine.BuildConfig
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -17,6 +20,13 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
  * @date 2023/10/16
  */
 class XposedHookEntry : IXposedHookLoadPackage {
+
+    companion object {
+        init {
+            System.loadLibrary("dexkit")
+        }
+    }
+
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam?) {
         val packageName = lpparam?.packageName ?: return
         val processName = lpparam.processName
@@ -29,11 +39,18 @@ class XposedHookEntry : IXposedHookLoadPackage {
         XRuntime.classLoader = classLoader
         XRuntime.inHooked = true
 
+        if (lpparam.appInfo.packageName == BuildConfig.APPLICATION_ID) {
+            return
+        }
+        val appCls = lpparam.appInfo.className
+
         XposedHelpers.findAndHookMethod(
-            Application::class.java,
-            "attach",
+            XRuntime.loadClass(appCls),
+            "attachBaseContext",
+            Context::class.java,
             newMethodBefore {
                 registerLifecycle(it.thisObject)
+
                 XRuntime.extClassLoader = it.thisObject.javaClass.classLoader
                 handleHook()
             },
@@ -52,5 +69,6 @@ class XposedHookEntry : IXposedHookLoadPackage {
         for (iHook in list) {
             iHook.hookReward()
         }
+        DeJianHooker.init()
     }
 }

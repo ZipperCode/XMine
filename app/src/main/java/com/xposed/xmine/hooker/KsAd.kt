@@ -1,8 +1,10 @@
 package com.xposed.xmine.hooker
 
 import com.xposed.xmine.ActivityStackManager
+import com.xposed.xmine.Logger
 import com.xposed.xmine.XRuntime
 import com.xposed.xmine.hooker.base.IHookRewardMixin
+import com.xposed.xmine.newMethodAfter
 import com.xposed.xmine.newMethodBefore
 import com.xposed.xmine.runCatch
 import de.robv.android.xposed.XposedHelpers
@@ -50,7 +52,7 @@ object KsAd : IHookRewardMixin {
                             videoCompleteMethod.invoke(listener)
                             ActivityStackManager.safeFinishTopAct { act ->
                                 act.javaClass.name.contains("com.kwad.sdk.api.proxy.app.KsRewardVideoActivity") ||
-                                    act.javaClass.name.contains("com.kwad.sdk.api.proxy.app.KSRewardLandScapeVideoActivity")
+                                        act.javaClass.name.contains("com.kwad.sdk.api.proxy.app.KSRewardLandScapeVideoActivity")
                             }
                         }, 1000)
                     }
@@ -71,6 +73,28 @@ object KsAd : IHookRewardMixin {
                 rewardListenerCls,
                 methodCallback,
             )
+        }
+
+        runCatch {
+            val cls = XRuntime.classLoader.loadClass("com.kwad.components.ad.reward.l.d")
+            val adCls = XRuntime.classLoader.loadClass("com.kwad.components.ad.j.a")
+            XposedHelpers.findAndHookConstructor(cls, Int::class.java, adCls, newMethodBefore {
+
+            })
+        }
+
+        runCatch {
+            val adTemplateCls = XRuntime.loadClass("com.kwad.sdk.core.response.model.AdTemplate")
+            XposedHelpers.findAndHookMethod(adTemplateCls, "getmCurPlayTime", newMethodAfter {
+                val res = it.result
+                d("AdTemplate获取当前播放时间 = %s", res)
+                it.result = 100 * 1000L
+            })
+
+            XposedHelpers.findAndHookMethod(adTemplateCls, "setmCurPlayTime", newMethodBefore {
+                d("AdTemplate设置当前播放时间 = %s", it.args[0])
+                it.args[0] = 100 * 1000L
+            })
         }
     }
 }

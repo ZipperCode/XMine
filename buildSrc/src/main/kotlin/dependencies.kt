@@ -10,7 +10,7 @@ object Xposed {
 }
 
 object DexKit {
-    private const val version = "2.0"
+    private const val version = "2.0.0-rc7"
     const val dexkit = "org.luckypray:dexkit:$version"
 }
 

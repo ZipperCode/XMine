@@ -2,5 +2,6 @@
 <resources>
     <string-array name="xposed_scope">
         <item>com.sinyee.babybus.world</item>
+        <item>com.chaozh.iReader.dj</item>
     </string-array>
 </resources>
