@@ -23,7 +23,7 @@ object Logger {
         Log.d(MAIN_TAG, msg.format(*varargs))
     }
 
-    fun d(tag: String, msg: String, vararg varargs: Any?) {
+    fun dd(tag: String, msg: String, vararg varargs: Any?) {
         Log.d(MAIN_TAG, "[$tag]: $msg".format(*varargs))
     }
 
@@ -31,7 +31,7 @@ object Logger {
         Log.e(MAIN_TAG, msg.format(*varargs))
     }
 
-    fun e(tag: String, msg: String, vararg varargs: Any?) {
+    fun ee(tag: String, msg: String, vararg varargs: Any?) {
         Log.e(MAIN_TAG, "[$tag]: $msg".format(*varargs))
     }
 

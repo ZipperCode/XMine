@@ -2,6 +2,7 @@ package com.xposed.xmine
 
 import android.os.Handler
 import android.os.Looper
+import org.luckypray.dexkit.DexKitBridge
 
 /**
  *
@@ -11,6 +12,8 @@ import android.os.Looper
 object XRuntime {
 
     const val pluginPackage = "com.xposed.xmine"
+
+    var apkPath: String = ""
 
     var classLoader: ClassLoader = ClassLoader.getSystemClassLoader()
         internal set
@@ -26,6 +29,8 @@ object XRuntime {
     var inHooked = false
         internal set
 
+    val isModule: Boolean get() = packageName == BuildConfig.APPLICATION_ID
+
     val mainHandler: Handler by lazy {
         Handler(Looper.getMainLooper())
     }
@@ -40,5 +45,9 @@ object XRuntime {
 
         // throw null point
         return res!!
+    }
+
+    fun loadDexKit() {
+
     }
 }

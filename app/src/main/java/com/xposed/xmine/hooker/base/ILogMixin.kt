@@ -15,10 +15,10 @@ interface ILogMixin {
     }
 
     fun d(msg: String, vararg varargs: Any?) {
-        Logger.d(TAG, msg, *varargs)
+        Logger.dd(TAG, msg, *varargs)
     }
 
     fun e(msg: String, vararg varargs: Any?) {
-        Logger.d(TAG, msg, *varargs)
+        Logger.dd(TAG, msg, *varargs)
     }
 }

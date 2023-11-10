@@ -7,6 +7,7 @@ import com.xposed.xmine.hooker.base.IHookRewardMixin
 import com.xposed.xmine.newMethodBefore
 import com.xposed.xmine.runCatch
 import de.robv.android.xposed.XposedHelpers
+import org.luckypray.dexkit.DexKitBridge
 import java.lang.reflect.Proxy
 
 /**
@@ -20,6 +21,24 @@ object CsjAd : IHookRewardMixin {
         get() = "CSJ_AD"
 
     override fun hookReward() {
+//        runCatch {
+//            DexKitBridge.create(XRuntime.apkPath)?.use {
+//                val findClassList = it.findClass {
+//                    matcher {
+//                        interfaces {
+//                            add("com.bytedance.sdk.openadsdk.TTRewardVideoAd")
+//                        }
+//                    }
+//                }
+//
+//                i("findClassList = %s", findClassList)
+//            }
+//        }
+
+        run()
+    }
+
+    private fun run() {
         runCatch {
             i("Hook穿山甲广告激励方法")
             val rewardInterfaceCls = XRuntime.loadClass("com.bytedance.sdk.openadsdk.TTRewardVideoAd")
