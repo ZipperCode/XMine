@@ -19,19 +19,11 @@ object Logger {
         Log.i(MAIN_TAG, "[$tag]: $msg".format(*varargs))
     }
 
-    fun d(msg: String, vararg varargs: Any?) {
-        Log.d(MAIN_TAG, msg.format(*varargs))
-    }
-
-    fun dd(tag: String, msg: String, vararg varargs: Any?) {
+    fun d(tag: String, msg: String, vararg varargs: Any?) {
         Log.d(MAIN_TAG, "[$tag]: $msg".format(*varargs))
     }
 
-    fun e(msg: String, vararg varargs: Any?) {
-        Log.e(MAIN_TAG, msg.format(*varargs))
-    }
-
-    fun ee(tag: String, msg: String, vararg varargs: Any?) {
+    fun e(tag: String, msg: String, vararg varargs: Any?) {
         Log.e(MAIN_TAG, "[$tag]: $msg".format(*varargs))
     }
 

@@ -22,7 +22,6 @@ object DexKitHelper {
 //        Logger.d("DexKitHelper", "provider = $provider")
 
         val list = context.packageManager.getInstalledPackages(0)
-        Logger.dd("DexKitHelper", "list = $list")
-
+        Logger.d("DexKitHelper", "list = $list")
     }
 }

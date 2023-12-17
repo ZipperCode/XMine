@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+
 }
 
 android {
@@ -31,6 +33,8 @@ android {
 
     buildFeatures {
         buildConfig = true
+        aidl = true
+        viewBinding = true
     }
 
     packaging {
@@ -58,4 +62,6 @@ dependencies {
     implementation(AndroidX.appcompat)
     implementation(AndroidX.constraintLayout)
     implementation(Material.material)
+    implementation(LibSu.core)
+    implementation(LibSu.service)
 }

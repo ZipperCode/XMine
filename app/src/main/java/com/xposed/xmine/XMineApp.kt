@@ -2,21 +2,23 @@ package com.xposed.xmine
 
 import android.app.Application
 import android.content.Context
+import android.os.Debug
 
 /**
  *
- * @author  zhangzhipeng
- * @date    2023/11/6
+ * @author zhangzhipeng
+ * @date 2023/11/6
  */
-class XMineApp: Application() {
+class XMineApp : Application() {
 
-    override fun attachBaseContext(base: Context?) {
-        Logger.dd("XMineApp", "attachBaseContext")
+    override fun attachBaseContext(base: Context) {
+        Logger.d("XMineApp", "attachBaseContext")
         super.attachBaseContext(base)
     }
 
     override fun onCreate() {
-        Logger.dd("XMineApp", "onCreate")
+        Logger.d("XMineApp", "onCreate")
         super.onCreate()
+        ModuleInitializer.bindRootService(applicationContext)
     }
 }

@@ -29,3 +29,12 @@ object Material {
     private const val materialVersion = "1.7.0"
     const val material = "com.google.android.material:material:$materialVersion"
 }
+
+object LibSu {
+    private const val version = "5.2.2"
+    const val core = "com.github.topjohnwu.libsu:core:$version"
+
+    const val service = "com.github.topjohnwu.libsu:service:$version"
+
+    const val nio = "com.github.topjohnwu.libsu:nio:$version"
+}

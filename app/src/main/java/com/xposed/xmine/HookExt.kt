@@ -1,6 +1,7 @@
 package com.xposed.xmine
 
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 
@@ -69,5 +70,59 @@ inline fun newInvocation(crossinline block: (proxy: Any, method: Method, args: A
 inline fun <T> runCatch(crossinline block: () -> T): Result<T> {
     return runCatching(block).onFailure {
         Logger.printStackTrace(it)
+    }
+}
+
+inline fun findAndHookMethodBefore(
+    clazz: Class<*>,
+    methodName: String,
+    vararg parameterTypes: Class<*>?,
+    crossinline before: ((XC_MethodHook.MethodHookParam) -> Unit),
+) {
+    runCatch {
+        val paramList = arrayListOf<Any?>()
+        val callback = object : XC_MethodHook() {
+            override fun beforeHookedMethod(param: MethodHookParam?) {
+                runCatch {
+                    if (param != null) {
+                        before(param)
+                    }
+                }
+            }
+        }
+        if (parameterTypes.isNotEmpty()) {
+            for (any in parameterTypes) {
+                paramList.add(any)
+            }
+        }
+        paramList.add(callback)
+        XposedHelpers.findAndHookMethod(clazz, methodName, *paramList.toArray())
+    }
+}
+
+inline fun findAndHookMethodAfter(
+    clazz: Class<*>,
+    methodName: String,
+    vararg parameterTypes: Any?,
+    crossinline after: ((XC_MethodHook.MethodHookParam) -> Unit),
+) {
+    runCatch {
+        val paramList = arrayListOf<Any?>()
+        val callback = object : XC_MethodHook() {
+            override fun afterHookedMethod(param: MethodHookParam?) {
+                runCatch {
+                    if (param != null) {
+                        after(param)
+                    }
+                }
+            }
+        }
+        if (parameterTypes.isNotEmpty()) {
+            for (any in parameterTypes) {
+                paramList.add(any)
+            }
+        }
+        paramList.add(callback)
+        XposedHelpers.findAndHookMethod(clazz, methodName, *paramList.toArray())
     }
 }
