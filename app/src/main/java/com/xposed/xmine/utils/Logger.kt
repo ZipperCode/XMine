@@ -1,6 +1,7 @@
 package com.xposed.xmine.utils
 
 import android.util.Log
+import de.robv.android.xposed.XposedBridge
 
 /**
  *
@@ -29,5 +30,9 @@ object Logger {
 
     fun printStackTrace(e: Throwable? = null) {
         Log.e(MAIN_TAG, Log.getStackTraceString(e ?: Throwable()))
+    }
+
+    fun log(msg: String, vararg varargs: Any?) {
+        XposedBridge.log("$MAIN_TAG: ${msg.format(*varargs)}")
     }
 }

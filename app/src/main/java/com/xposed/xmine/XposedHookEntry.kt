@@ -4,6 +4,7 @@ import com.xposed.xmine.initializer.AppInitializer
 import com.xposed.xmine.initializer.ModuleInitializer
 import com.xposed.xmine.utils.Logger
 import de.robv.android.xposed.IXposedHookLoadPackage
+import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -13,7 +14,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
  * @author zhangzhipeng
  * @date 2023/10/16
  */
-class XposedHookEntry : IXposedHookLoadPackage {
+class XposedHookEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
 
     companion object {
 
@@ -22,6 +23,11 @@ class XposedHookEntry : IXposedHookLoadPackage {
         init {
             SuManager.init()
         }
+    }
+
+    override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam?) {
+        Logger.d("Entry", "initZygote")
+
     }
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
