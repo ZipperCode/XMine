@@ -1,6 +1,7 @@
 package com.xposed.xmine
 
 import android.content.Context
+import com.xposed.xmine.utils.Logger
 
 /**
  *

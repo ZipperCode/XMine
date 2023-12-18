@@ -1,6 +1,6 @@
 package com.xposed.xmine.hooker
 
-import com.xposed.xmine.Logger
+import com.xposed.xmine.utils.Logger
 import com.xposed.xmine.XRuntime
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge

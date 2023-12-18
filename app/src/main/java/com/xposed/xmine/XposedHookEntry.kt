@@ -1,11 +1,12 @@
 package com.xposed.xmine
 
-import com.topjohnwu.superuser.Shell
-import com.xposed.xmine.XRuntime.classLoader
+import com.xposed.xmine.initializer.AppInitializer
+import com.xposed.xmine.initializer.ModuleInitializer
+import com.xposed.xmine.utils.Logger
 import de.robv.android.xposed.IXposedHookLoadPackage
+import de.robv.android.xposed.XC_MethodReplacement
+import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
-import org.luckypray.dexkit.BuildConfig
 
 /**
  *
@@ -17,6 +18,10 @@ class XposedHookEntry : IXposedHookLoadPackage {
     companion object {
 
         const val TAG = "Entry"
+
+        init {
+            SuManager.init()
+        }
     }
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
@@ -31,6 +36,7 @@ class XposedHookEntry : IXposedHookLoadPackage {
 
         if (XRuntime.isModule) {
             Logger.d(TAG, "当前是Xposed模块化")
+            XposedHelpers.findAndHookMethod(XRuntime.loadClass(ModuleInitializer::class.java.name), "isActive", XC_MethodReplacement.returnConstant(true))
             return
         }
         AppInitializer.init(lpparam)

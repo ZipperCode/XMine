@@ -2,6 +2,7 @@ package com.xposed.xmine
 
 import android.os.Handler
 import android.os.Looper
+import com.xposed.xmine.utils.runCatch
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 
 /**

@@ -4,10 +4,9 @@ import android.os.Bundle
 import com.xposed.xmine.ActivityStackManager
 import com.xposed.xmine.XRuntime
 import com.xposed.xmine.hooker.base.IHookRewardMixin
-import com.xposed.xmine.newMethodBefore
-import com.xposed.xmine.runCatch
+import com.xposed.xmine.utils.newMethodBefore
+import com.xposed.xmine.utils.runCatch
 import de.robv.android.xposed.XposedHelpers
-import org.luckypray.dexkit.DexKitBridge
 import java.lang.reflect.Proxy
 
 /**

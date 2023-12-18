@@ -8,6 +8,7 @@ import android.os.IBinder
 import android.util.Log
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ipc.RootService
+import com.xposed.xmine.utils.Logger
 import org.luckypray.dexkit.BuildConfig
 
 object SuManager : Shell.Initializer() {
@@ -15,9 +16,8 @@ object SuManager : Shell.Initializer() {
     private const val TAG = "SuManager"
 
     private lateinit var applicationContext: Context
-
-    init {
-        Shell.enableVerboseLogging = BuildConfig.DEBUG
+    fun init() {
+        Shell.enableVerboseLogging = true
         Shell.setDefaultBuilder(
             Shell.Builder.create()
                 .setFlags(Shell.FLAG_REDIRECT_STDERR)
@@ -28,12 +28,13 @@ object SuManager : Shell.Initializer() {
     fun bindService(context: Context, callback: (IRootInterface?) -> Unit) {
         Logger.d(TAG, "bindRootService")
         this.applicationContext = context
-        val intent = Intent(context, RootService::class.java)
+        val intent = Intent(context, CustomRootService::class.java)
         intent.addCategory(RootService.CATEGORY_DAEMON_MODE)
         RootService.bind(
             intent,
             object : ServiceConnection {
                 override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+                    Logger.d(TAG, "onServiceConnected service = %s", service)
                     if (service == null) {
                         Logger.e(TAG, "bindRootService 失败，binder为空")
                         return
@@ -58,7 +59,7 @@ object SuManager : Shell.Initializer() {
 
     class ShellInitializer : Shell.Initializer() {
         override fun onInit(context: Context, shell: Shell): Boolean {
-            Logger.d("SuManager", "onInit")
+            Logger.d("SuManager", "onInit shell = $shell")
             return true
         }
     }

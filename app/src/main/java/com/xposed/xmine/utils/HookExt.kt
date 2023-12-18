@@ -1,4 +1,4 @@
-package com.xposed.xmine
+package com.xposed.xmine.utils
 
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers

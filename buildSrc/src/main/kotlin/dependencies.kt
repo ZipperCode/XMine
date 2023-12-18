@@ -35,6 +35,6 @@ object LibSu {
     const val core = "com.github.topjohnwu.libsu:core:$version"
 
     const val service = "com.github.topjohnwu.libsu:service:$version"
-
+    const val io = "com.github.topjohnwu.libsu:io:$version"
     const val nio = "com.github.topjohnwu.libsu:nio:$version"
 }

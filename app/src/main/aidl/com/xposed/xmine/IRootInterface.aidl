@@ -10,4 +10,6 @@ interface IRootInterface {
     ProtocolResponse handleSync(in ProtocolRequest request);
 
     void handleAsync(in ProtocolRequest request, IProtocolCallback callback);
+
+    IBinder getFileSystemService();
 }

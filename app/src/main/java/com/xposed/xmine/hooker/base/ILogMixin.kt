@@ -1,6 +1,6 @@
 package com.xposed.xmine.hooker.base
 
-import com.xposed.xmine.Logger
+import com.xposed.xmine.utils.Logger
 
 /**
  *

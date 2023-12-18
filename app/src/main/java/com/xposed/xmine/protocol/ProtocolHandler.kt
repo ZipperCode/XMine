@@ -1,6 +1,6 @@
 package com.xposed.xmine.protocol
 
-import com.xposed.xmine.Logger
+import com.xposed.xmine.utils.Logger
 
 class ProtocolHandler {
     companion object {

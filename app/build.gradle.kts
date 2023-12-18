@@ -64,4 +64,6 @@ dependencies {
     implementation(Material.material)
     implementation(LibSu.core)
     implementation(LibSu.service)
+    implementation(LibSu.io)
+    implementation(LibSu.nio)
 }

@@ -4,12 +4,10 @@ import android.content.Context
 import com.xposed.xmine.ActivityStackManager
 import com.xposed.xmine.XRuntime
 import com.xposed.xmine.hooker.base.IHookRewardMixin
-import com.xposed.xmine.newMethodBefore
-import com.xposed.xmine.runCatch
+import com.xposed.xmine.utils.newMethodBefore
+import com.xposed.xmine.utils.runCatch
 import de.robv.android.xposed.XposedHelpers
-import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Proxy
-import java.util.UUID
 
 /**
  *

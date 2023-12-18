@@ -1,4 +1,4 @@
-package com.xposed.xmine
+package com.xposed.xmine.utils
 
 import android.util.Log
 

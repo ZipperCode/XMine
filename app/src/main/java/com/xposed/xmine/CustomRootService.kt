@@ -3,8 +3,10 @@ package com.xposed.xmine
 import android.content.Intent
 import android.os.IBinder
 import com.topjohnwu.superuser.ipc.RootService
+import com.topjohnwu.superuser.nio.FileSystemManager
 import com.xposed.xmine.protocol.ProtocolRequest
 import com.xposed.xmine.protocol.ProtocolResponse
+import com.xposed.xmine.utils.Logger
 import org.json.JSONObject
 import java.io.File
 
@@ -24,12 +26,14 @@ class CustomRootService : RootService() {
     }
 
     override fun onBind(intent: Intent): IBinder {
+        Logger.d(TAG, "onBind")
         return RootInterfaceImpl()
     }
 
     inner class RootInterfaceImpl : IRootInterface.Stub() {
         override fun openProtocol(protocol: String?): String? {
-            return null
+            Logger.d(TAG, "openProtocol protocol = %s", protocol)
+            return "我是返回Protocol"
         }
 
         override fun handleSync(request: ProtocolRequest?): ProtocolResponse {
@@ -75,6 +79,10 @@ class CustomRootService : RootService() {
         }
 
         override fun handleAsync(request: ProtocolRequest?, callback: IProtocolCallback?) {
+        }
+
+        override fun getFileSystemService(): IBinder {
+            return FileSystemManager.getService()
         }
     }
 }
