@@ -74,7 +74,7 @@ inline fun <T> runCatch(crossinline block: () -> T): Result<T> {
 }
 
 inline fun findAndHookMethodBefore(
-    clazz: Class<*>,
+    clazz: Class<*>?,
     methodName: String,
     vararg parameterTypes: Class<*>?,
     crossinline before: ((XC_MethodHook.MethodHookParam) -> Unit),
@@ -101,7 +101,7 @@ inline fun findAndHookMethodBefore(
 }
 
 inline fun findAndHookMethodAfter(
-    clazz: Class<*>,
+    clazz: Class<*>?,
     methodName: String,
     vararg parameterTypes: Any?,
     crossinline after: ((XC_MethodHook.MethodHookParam) -> Unit),
